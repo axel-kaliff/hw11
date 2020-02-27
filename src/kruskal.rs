@@ -64,27 +64,30 @@ fn kruskal(v: usize, edges: usize, sorted_edges: &Vec<WeightedEdge>) {
     let mut sorted_result: Vec<(usize, usize)> = Vec::with_capacity(v - 1);
 
     for edge in &result {
-        let s_edge = (edge.1, edge.2);
+        let mut s_edge = (edge.1, edge.2);
+
+        if edge.1 > edge.2 {
+            s_edge = (edge.2, edge.1);
+        }
+
         if s_edge != (0, 0) {
-            let index = sorted_result.binary_search(&s_edge).unwrap_or_else(|x| x);
-            sorted_result.insert(index, s_edge);
+            sorted_result.push(s_edge);
         }
     }
+
+    sorted_result.sort_by_key(|k| k.1);
+    sorted_result.sort_by_key(|k| k.0);
 
     if sorted_result.len() == v - 1 {
         println!("{}", sum);
         for edge in 0..sorted_result.len() {
-            if sorted_result[edge].0 < sorted_result[edge].1 {
-                println!("{} {}", sorted_result[edge].0, sorted_result[edge].1);
-            } else {
-                println!("{} {}", sorted_result[edge].1, sorted_result[edge].0);
-            }
+            println!("{} {}", sorted_result[edge].0, sorted_result[edge].1);
         }
     } else {
         println!("Impossible");
     }
 }
-pub fn gogo() {
+pub fn main() {
     let stdin = io::stdin();
     let mut number_nodes = 0;
     let mut number_edges = 0;

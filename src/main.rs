@@ -1,5 +1,5 @@
-use hw11::fenwick::fenwick;
+use hw11::kruskal::gogo;
 
 fn main() {
-    fenwick();
+    gogo();
 }
