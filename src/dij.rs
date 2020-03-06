@@ -53,6 +53,7 @@ impl<T> Grid<T> {
     {
         for &(start, end, weight) in iterator.into_iter() {
             self.nodes[start].edges.push((end, weight));
+            //            self.nodes[end].edges.push((start, weight));
         }
     }
 
@@ -97,7 +98,7 @@ impl<T> Grid<T> {
     }
 }
 
-fn main() {
+pub fn dij() {
     let stdin = io::stdin();
     let mut start = 0;
     let mut grid = Grid::new();
@@ -124,11 +125,17 @@ fn main() {
             grid.create_edges(&[(nums[0], nums[1], nums[2])]);
         } else if nums.len() == 1 {
             if grid.find_path(start, nums[0]).is_some() {
-                let (_, cost) = grid.find_path(start, nums[0]).unwrap();
+                let (path, cost) = grid.find_path(start, nums[0]).unwrap();
                 println!("{}", cost);
             } else {
                 println!("Impossible");
             }
         }
     }
+
+    //print!("{}", grid.nodes[path[0]].data);
+    //for i in path.iter().skip(1) {
+    //   print!(" -> {}", grid.nodes[*i].data);
+    //}
+    //println!("\nCost: {}", cost);
 }
